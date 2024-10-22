@@ -1,6 +1,12 @@
+@php
+    $ComicArtists = json_decode($comic->artists);
+    $ComicWriters = json_decode($comic->writers);
+
+@endphp
+
 @extends('layouts.app')
 
-@section('page-title', 'Home DC Comics')
+@section('page-title', $comic->title)
 
 @section('main-content')
     <div class="container">
@@ -12,19 +18,42 @@
         <a href="/">Clicca qui per tornare alla lista dei link</a>
 
         <div class="row">
-            @foreach ($comics as $comic)
-                <div class="col-4 g-5">
-                    <div class="card">
-                        <img src="{{$comic->thumb}}" class="card-img-top" alt="...">
+            <div class="col">
+                <div class="card mb-3 w-100">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img src="{{$comic->thumb}}" class="img-fluid rounded-start" alt="{{$comic->title}}">
+                      </div>
+                      <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">{{$comic->title}}</h5>
-                            <p class="card-text"><strong>Price:</strong> {{$comic->price}} €</p>
-                            <p class="card-text"><strong>Type:</strong> {{$comic->type}}</p>
-                            <a href="#" class="btn btn-primary">More info about it</a>
+                          <h5 class="card-title fs-1">{{$comic->title}}</h5>
+                          <p class="card-text fs-5">{{$comic->description}}</p>
+                          <p class="card-text fs-5 text-success">Genre: {{$comic->type}}</p>
+                          <p class="card-text fs-5">Price: {{$comic->price}}€</p>
+                          <p class="card-text fs-5">Date: {{$comic->sale_date}}</p>
+                          <p class="card-text fs-5">Series: {{$comic->series}}</p>
+
+                          <p class="card-text fs-5">
+                            Artists:
+                            <ul>
+                                @foreach ($ComicArtists as $comicArtist)
+                                    <li>{{$comicArtist}}</li>
+                                @endforeach
+                            </ul>
+                          </p>
+                          <p class="card-text fs-5">
+                            Writers:
+                            <ul>
+                                @foreach ($ComicWriters as $comicWriter)
+                                    <li>{{$comicWriter}}</li>
+                                @endforeach
+                            </ul>
+                          </p>
                         </div>
+                      </div>
                     </div>
-                </div>
-            @endforeach
+                  </div>
+            </div>
         </div>
     </div>
 
