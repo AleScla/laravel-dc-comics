@@ -10,7 +10,5 @@ class MainController extends Controller
     function index(){
         return view('welcome');
     }
-    function about(){
-        return view('about');
-    }
+
 }
