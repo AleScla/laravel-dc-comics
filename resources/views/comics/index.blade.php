@@ -10,6 +10,7 @@
             </div>
         </div>
         <a href="/">Clicca qui per tornare alla lista dei link</a>
+        <a href="{{route('comics.create')}}" class="btn btn-primary">Aggiungi un nuovo comic</a>
 
         <div class="row">
             @foreach ($comics as $comic)

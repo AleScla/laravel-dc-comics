@@ -32,6 +32,28 @@ class ComicController extends Controller
     {
         // $request->all() andrà a prendere i dati della richiesta dell'utente, qui verrà effettuata
         // un'eventuale validazione e tramite model verranno pushati in db
+        $data = $request->all();
+        $comic = new Comic();
+        $comic->title = $data['title'];
+        $comic->description = $data['description'];
+        $comic->thumb = $data['thumb'];
+        $comic->series = $data['series'];
+
+
+        $comic->price = floatval($data['price']);
+
+        $comic->sale_date = $data['sale_date'];
+        $comic->type = $data['type'];
+
+        $explodeArtists = explode(',', $data['artists']);
+        $comic->artists = json_encode($explodeArtists);
+
+        $explodeWriters = explode(',', $data['writers']);
+        $comic->writers = json_encode($explodeWriters);
+
+        $comic->save();
+
+        return redirect()->route('comics.show', ['comic' => $comic->id]);
     }
 
     /**
