@@ -22,7 +22,7 @@ class ComicController extends Controller
      */
     public function create()
     {
-        //
+        return view('comics.create');
     }
 
     /**
@@ -30,15 +30,15 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $request->all() andrà a prendere i dati della richiesta dell'utente, qui verrà effettuata
+        // un'eventuale validazione e tramite model verranno pushati in db
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Comic $comic)
     {
-        $comic = Comic::find($id);
         return view('comics.show', compact('comic'));
     }
 
