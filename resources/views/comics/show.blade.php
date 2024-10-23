@@ -15,7 +15,7 @@
                 <h1></h1>
             </div>
         </div>
-        <a href="/">Clicca qui per tornare alla lista dei link</a>
+        <a href="{{route('comics.index')}}">Clicca qui per tornare alla lista dei comics</a>
 
         <div class="row">
             <div class="col">

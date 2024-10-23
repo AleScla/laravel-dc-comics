@@ -1,24 +1,26 @@
 @extends('layouts.app')
 
-@section('page-title', 'Crea un DC Comic')
+@section('page-title', 'Edit DC Comic')
 
 @section('main-content')
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1>Inserisci un nuovo comic!</h1>
+                <h1>Modifica il comic selezionato!</h1>
             </div>
             <div class="col">
-                <form action="{{route('comics.store')}}" method="POST">
+                <form action="{{route('comics.update', ['comic' => $comic->id])}}" method="POST">
                     @csrf
+                    @method('PUT')
                     <div class="mb-3">
                         <label for="title" class="form-label fw-bold fs-5">Titolo *</label>
                         <input type="text"
-                         class="form-control"
-                          id="title"
-                          name="title"
-                          required
-                          placeholder="Inserisci il titolo...">
+                            class="form-control"
+                            id="title"
+                            name="title"
+                            required
+                            value="{{$comic->title}}"
+                            placeholder="Inserisci il titolo...">
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label fw-bold fs-5">Descrizione *</label>
@@ -29,7 +31,8 @@
                         rows="3"
                         maxlength="4096"
                         required
-                        placeholder="Inserisci una descrizione"></textarea>
+                        
+                        placeholder="Inserisci una descrizione">{{$comic->description}}</textarea>
                       </div>
                     <div class="mb-3">
                         <label for="thumb" class="form-label fw-bold fs-5">Link immagine</label>
@@ -39,6 +42,7 @@
                         name="thumb"
                         id="thumb"
                         maxlength="4096"
+                        value="{{$comic->thumb}}"
                         placeholder="Inserisci un link dell'immagine desiderata">
                     </div>
                     <div class="mb-3">
@@ -50,6 +54,7 @@
                         id="price"
                         required
                         step="0.01"
+                        value="{{$comic->price}}"
                         placeholder="Inserisci il prezzo">
                     </div>
 
@@ -62,6 +67,7 @@
                         id="series"
                         maxlength="64"
                         required
+                        value="{{$comic->series}}"
                         placeholder="Inserisci la serie in questione">
                     </div>
 
@@ -71,15 +77,36 @@
                         class="form-control"
                         name="sale_date"
                         id="sale_date"
+                        value="{{$comic->sale_date}}"
                         placeholder="Inserisci la data di uscita">
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-bold fs-5" for="type">Scegli un tipo di fumetto</label>
                         <select class="form-select" id="type" name="type">
-                            <option selected disabled>Scegli un tipo di fumetto</option>
-                            <option value="comic book">Comic Book</option>
-                            <option value="graphic novel">Graphic Novel</option>
+                            <option
+                                @if (!isset($comic->type) || $comic->type == '')
+                                    selected
+                                @endif
+                                disabled>
+                                Scegli un tipo di fumetto
+                            </option>
+
+                            <option
+                                @if ($comic->type == 'comic book')
+                                    selected
+                                @endif
+                                value="comic book">
+                                Comic Book
+                            </option>
+
+                            <option
+                                @if ($comic->type == 'graphic novel')
+                                selected
+                                @endif
+                                value="graphic novel">
+                                Graphic Novel
+                            </option>
                         </select>
                     </div>
 
@@ -89,7 +116,8 @@
                         class="form-control"
                         name="artists"
                         id="artists"
-                        placeholder="Inserisci gli artisti">
+                        placeholder="Inserisci gli artisti"
+                        value="{{implode(', ', json_decode($comic->artists))}}">
                         <p>Attenzione! Inserisci i nomi degli artisti separati da virgole</p>
                     </div>
 
@@ -99,12 +127,13 @@
                         class="form-control"
                         name="writers"
                         id="writers"
+                        value="{{implode(', ', json_decode($comic->writers))}}"
                         placeholder="Inserisci gli scrittori">
                         <p>Attenzione! Inserisci i nomi degli scrittori separati da virgole</p>
                     </div>
 
 
-                    <button type="submit" class="btn btn-primary">Aggiungi</button>
+                    <button type="submit" class="btn btn-primary">Aggiorna le modifiche</button>
                 </form>
             </div>
         </div>
