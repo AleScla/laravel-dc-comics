@@ -19,6 +19,8 @@
                             id="title"
                             name="title"
                             required
+                            minlength="3"
+                            maxlength="128"
                             value="{{$comic->title}}"
                             placeholder="Inserisci il titolo...">
                     </div>
@@ -29,9 +31,10 @@
                         id="description"
                         name="description"
                         rows="3"
+                        minlength="10"
                         maxlength="4096"
                         required
-                        
+
                         placeholder="Inserisci una descrizione">{{$comic->description}}</textarea>
                       </div>
                     <div class="mb-3">
@@ -65,6 +68,7 @@
                         class="form-control"
                         name="series"
                         id="series"
+                        minlength="5"
                         maxlength="64"
                         required
                         value="{{$comic->series}}"
@@ -117,6 +121,7 @@
                         name="artists"
                         id="artists"
                         placeholder="Inserisci gli artisti"
+                        maxlength="1024"
                         value="{{implode(', ', json_decode($comic->artists))}}">
                         <p>Attenzione! Inserisci i nomi degli artisti separati da virgole</p>
                     </div>
@@ -127,6 +132,7 @@
                         class="form-control"
                         name="writers"
                         id="writers"
+                        maxlength="1024"
                         value="{{implode(', ', json_decode($comic->writers))}}"
                         placeholder="Inserisci gli scrittori">
                         <p>Attenzione! Inserisci i nomi degli scrittori separati da virgole</p>

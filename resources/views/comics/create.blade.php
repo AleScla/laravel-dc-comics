@@ -18,6 +18,8 @@
                           id="title"
                           name="title"
                           required
+                          minlength="3"
+                          maxlength="128"
                           placeholder="Inserisci il titolo...">
                     </div>
                     <div class="mb-3">
@@ -27,6 +29,7 @@
                         id="description"
                         name="description"
                         rows="3"
+                        minlength="10"
                         maxlength="4096"
                         required
                         placeholder="Inserisci una descrizione"></textarea>
@@ -60,6 +63,7 @@
                         class="form-control"
                         name="series"
                         id="series"
+                        minlength="5"
                         maxlength="64"
                         required
                         placeholder="Inserisci la serie in questione">
@@ -89,6 +93,7 @@
                         class="form-control"
                         name="artists"
                         id="artists"
+                        maxlength="1024"
                         placeholder="Inserisci gli artisti">
                         <p>Attenzione! Inserisci i nomi degli artisti separati da virgole</p>
                     </div>
@@ -99,6 +104,7 @@
                         class="form-control"
                         name="writers"
                         id="writers"
+                        maxlength="1024"
                         placeholder="Inserisci gli scrittori">
                         <p>Attenzione! Inserisci i nomi degli scrittori separati da virgole</p>
                     </div>
