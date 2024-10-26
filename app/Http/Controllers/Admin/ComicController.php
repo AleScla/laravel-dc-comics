@@ -62,7 +62,6 @@ class ComicController extends Controller
      */
     public function edit(Comic $comic)
     {
-
         return view('comics.edit', compact('comic'));
     }
 
@@ -73,24 +72,16 @@ class ComicController extends Controller
     {
         $data = $request->all();
 
-        $comic->title = $data['title'];
-        $comic->description = $data['description'];
-        $comic->thumb = $data['thumb'];
-        $comic->series = $data['series'];
-
-
-        $comic->price = floatval($data['price']);
-
-        $comic->sale_date = $data['sale_date'];
-        $comic->type = $data['type'];
+        $floattedPrice = floatval($data['price']);
+        $data['price'] = $floattedPrice;
 
         $explodeArtists = explode(',', $data['artists']);
-        $comic->artists = json_encode($explodeArtists);
+        $data['artists'] = json_encode($explodeArtists);
 
         $explodeWriters = explode(',', $data['writers']);
-        $comic->writers = json_encode($explodeWriters);
+        $data['writers'] = json_encode($explodeWriters);
 
-        $comic->save();
+        $comic->update($data);
 
         return redirect()->route('comics.show', ['comic' => $comic->id]);
     }
@@ -98,9 +89,8 @@ class ComicController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Comic $comic)
     {
-        $comic = Comic::findOrFail($id);
         $comic->delete();
         return redirect()->route('comics.index');
     }
