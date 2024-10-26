@@ -34,23 +34,17 @@ class ComicController extends Controller
         // un'eventuale validazione e tramite model verranno pushati in db
         $data = $request->all();
 
-        $price=floatval($data['price']);
-        $explodeArtists = explode(',', $data['artists']);
-        $artists = json_encode($explodeArtists);
-        $explodeWriters = explode(',', $data['writers']);
-        $writers = json_encode($explodeWriters);
+        $floattedPrice=floatval($data['price']);
+        $data['price'] = $floattedPrice;
 
-        $comic = Comic::Create([
-            'title' => $data['title'],
-            'description'=> $data['description'],
-            'thumb' => $data['thumb'],
-            'price' => $price,
-            'series'=> $data['series'],
-            'sale_date'=> $data['sale_date'],
-            'type' => $data['type'],
-            'artists' => $artists,
-            'writers' => $writers,
-        ]);
+
+        $explodeArtists = explode(',', $data['artists']);
+        $data['artists'] = json_encode($explodeArtists);
+
+        $explodeWriters = explode(',', $data['writers']);
+        $data['writers'] = json_encode($explodeWriters);
+
+        $comic = Comic::Create($data);
 
         return redirect()->route('comics.show', ['comic' => $comic->id]);
     }
@@ -68,7 +62,7 @@ class ComicController extends Controller
      */
     public function edit(Comic $comic)
     {
-    
+
         return view('comics.edit', compact('comic'));
     }
 
