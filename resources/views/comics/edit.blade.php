@@ -8,6 +8,17 @@
             <div class="col-12">
                 <h1>Modifica il comic selezionato!</h1>
             </div>
+            @if ($errors->any())
+                <div>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>
+                                {{$error}}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="col">
                 <form action="{{route('comics.update', ['comic' => $comic->id])}}" method="POST">
                     @csrf

@@ -32,6 +32,20 @@ class ComicController extends Controller
     {
         // $request->all() andrà a prendere i dati della richiesta dell'utente, qui verrà effettuata
         // un'eventuale validazione e tramite model verranno pushati in db
+
+        // validation
+        $request->validate([
+            'title'=>'required|max:128|min:3',
+            'description'=>'required|min:10|max:4096',
+            'thumb'=>'nullable|max:4096|url',
+            'price'=>'required|decimal:2|min:0.01|max:9999.99',
+            'series'=>'required|min:5|max:64',
+            'sale_date'=>'nullable|date',
+            'type'=>'nullable|max:128',
+            'artists'=>'nullable|max:1024',
+            'writers'=>'nullable|max:1024',
+        ]);
+
         $data = $request->all();
 
         $floattedPrice=floatval($data['price']);
@@ -70,7 +84,19 @@ class ComicController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
+        $request->validate([
+            'title'=>'required|max:128|min:3',
+            'description'=>'required|min:10|max:4096',
+            'thumb'=>'nullable|max:4096|url',
+            'price'=>'required|decimal:2|min:0.01|max:9999.99',
+            'series'=>'required|min:5|max:64',
+            'sale_date'=>'nullable|date',
+            'type'=>'nullable|max:128',
+            'artists'=>'nullable|max:1024',
+            'writers'=>'nullable|max:1024',
+        ]);
         $data = $request->all();
+
 
         $floattedPrice = floatval($data['price']);
         $data['price'] = $floattedPrice;

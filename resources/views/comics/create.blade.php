@@ -8,6 +8,17 @@
             <div class="col-12">
                 <h1>Inserisci un nuovo comic!</h1>
             </div>
+            @if ($errors->any())
+                <div>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>
+                                {{$error}}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="col">
                 <form action="{{route('comics.store')}}" method="POST">
                     @csrf
